@@ -1,0 +1,68 @@
+.container {
+    padding: 50px;
+  }
+
+  mat-card {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .status-authorized {
+    color: green;
+  }
+
+  .status-confirmed {
+    color: blue;
+  }
+
+  .status-denied {
+    color: red;
+  }
+
+  .status-voided, .status-refunded, .status-aborted {
+    color: orange;
+  }
+
+  .status-pending {
+    color: gold;
+  }
+
+  .status-scheduled {
+    color: purple;
+  }
+
+  .status-not-finished {
+    color: gray;
+  }
+
+  .floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+
+  .floating-button:hover {
+    transform: scale(1.1);
+  }
+
+
+  button {
+    margin-left: 5px;
+  }
+
+  .mat-raised-button.warn {
+    background-color: red;
+    color: white;
+  }
+
+  button[disabled] {
+    background-color: lightgray;
+    color: darkgray;
+    cursor: not-allowed;
+  }

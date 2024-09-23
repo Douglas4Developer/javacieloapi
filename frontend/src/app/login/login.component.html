@@ -1,0 +1,25 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <h2 class="login-title">Bem-vindo de volta!</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="Digite seu email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="Digite sua senha" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading" class="submit-btn">
+        {{ loading ? 'Carregando...' : 'Entrar' }}
+      </button>
+
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    </form>
+    <p class="register-link">
+      Não tem uma conta? <a routerLink="/register">Cadastre-se</a>
+    </p>
+  </mat-card>
+</div>

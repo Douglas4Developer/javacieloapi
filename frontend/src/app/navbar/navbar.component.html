@@ -1,0 +1,23 @@
+<mat-toolbar color="primary" class="navbar">
+  <span class="logo">ApiCielo</span>
+  <span class="spacer"></span>
+
+  <!-- Botões normais para desktop -->
+  <button mat-button class="desktop-only" routerLink="/listar-vendas">Listar Vendas</button>
+  <button mat-button class="desktop-only" routerLink="/registrar-venda">Novo Pedido</button>
+
+  <!-- Ícone de menu para dispositivos móveis -->
+  <button mat-icon-button class="mobile-only" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- Menu dropdown visível no mobile -->
+<mat-list *ngIf="menuOpen" class="mobile-menu">
+<mat-list-item>
+  <button mat-button routerLink="/listar-vendas" (click)="toggleMenu()">Listar Vendas</button>
+</mat-list-item>
+<mat-list-item>
+  <button mat-button routerLink="/registrar-venda" (click)="toggleMenu()">Novo Pedido</button>
+</mat-list-item>
+</mat-list>

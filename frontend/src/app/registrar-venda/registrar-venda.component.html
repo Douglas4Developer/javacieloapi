@@ -1,0 +1,37 @@
+<mat-card>
+  <h5>Registrar Nova Venda</h5>
+  <form [formGroup]="vendaForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Descrição</mat-label>
+      <input matInput formControlName="descricao" placeholder="Descrição">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Valor</mat-label>
+      <input matInput formControlName="valor" type="number" placeholder="Valor">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Número do Cartão</mat-label>
+      <input matInput formControlName="numeroCartao" type="number" maxlength="16" placeholder="Número do Cartão">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Validade do Cartão</mat-label>
+      <input matInput formControlName="validadeCartao" placeholder="MM/AAAA">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Código de Segurança</mat-label>
+      <input matInput formControlName="codigoSeguranca" maxlength="3" placeholder="Código de Segurança">
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-button color="primary" type="submit" [disabled]="isLoading">Registrar Venda</button>
+      <!-- Remova o type="submit" do botão de cancelar -->
+      <button mat-button (click)="onClose()" [disabled]="isLoading">Cancelar</button>
+    </div>
+
+    <mat-spinner *ngIf="isLoading" diameter="30"></mat-spinner> <!-- Spinner durante o loading -->
+  </form>
+</mat-card>

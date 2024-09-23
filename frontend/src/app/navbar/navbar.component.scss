@@ -1,0 +1,46 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* Esconde os botões de navegação no mobile */
+.desktop-only {
+  display: none;
+}
+
+.mobile-only {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  /* Mostra os botões de navegação para telas maiores */
+  .desktop-only {
+    display: inline-flex;
+  }
+
+  .mobile-only, .mobile-menu {
+    display: none;
+  }
+}
+
+/* Ajustes para o menu mobile */
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  top: 60px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mat-list-item {
+  padding: 15px;
+}

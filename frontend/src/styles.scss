@@ -1,0 +1,33 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .container {
+    padding-top: 80px; /* Ajustar para garantir que o conteúdo não sobreponha a navbar */
+  }
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  .form-card {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+  }
+ 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
