@@ -1,37 +1,55 @@
 <mat-card>
-  <h5>Registrar Nova Venda</h5>
+  <h6>Registrar Nova Venda</h6>
   <form [formGroup]="vendaForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Descrição -->
     <mat-form-field>
       <mat-label>Descrição</mat-label>
       <input matInput formControlName="descricao" placeholder="Descrição">
     </mat-form-field>
 
+    <!-- Valor -->
     <mat-form-field>
       <mat-label>Valor</mat-label>
-      <input matInput formControlName="valor" type="number" placeholder="Valor">
+      <input matInput formControlName="valor" type="currency" placeholder="Valor">
     </mat-form-field>
 
+    <!-- Número do Cartão -->
     <mat-form-field>
       <mat-label>Número do Cartão</mat-label>
-      <input matInput formControlName="numeroCartao" type="number" maxlength="16" placeholder="Número do Cartão">
+      <input matInput formControlName="numeroCartao" maxlength="16" placeholder="Número do Cartão" (input)="onCardInput($event)">
     </mat-form-field>
 
+    <!-- Bandeira do Cartão (Visa, Mastercard, etc.) -->
+    <div *ngIf="cardFlag" class="card-flag">
+      <mat-icon>{{ cardFlag.icon }}</mat-icon>
+      <p>{{ cardFlag.name }}</p>
+    </div>
+
+    <!-- Validade do Cartão (MM/AAAA) -->
     <mat-form-field>
       <mat-label>Validade do Cartão</mat-label>
-      <input matInput formControlName="validadeCartao" placeholder="MM/AAAA">
+      <input matInput formControlName="validadeCartao" placeholder="MM/AAAA" maxlength="7" (input)="applyDateMask($event)">
+      <mat-error *ngIf="vendaForm.get('validadeCartao')?.hasError('required')">
+        A validade do cartão é obrigatória
+      </mat-error>
+      <mat-error *ngIf="vendaForm.get('validadeCartao')?.hasError('invalidDate')">
+        Data inválida. Use o formato MM/AAAA.
+      </mat-error>
     </mat-form-field>
 
+    <!-- Código de Segurança -->
     <mat-form-field>
       <mat-label>Código de Segurança</mat-label>
       <input matInput formControlName="codigoSeguranca" maxlength="3" placeholder="Código de Segurança">
     </mat-form-field>
 
+    <!-- Ações -->
     <div class="actions">
-      <button mat-button color="primary" type="submit" [disabled]="isLoading">Registrar Venda</button>
-      <!-- Remova o type="submit" do botão de cancelar -->
-      <button mat-button (click)="onClose()" [disabled]="isLoading">Cancelar</button>
+      <button mat-button color="primary" class="register-btn" type="submit" [disabled]="isLoading">Registrar Venda</button>
+      <button mat-button class="cancel-btn" (click)="onClose()" [disabled]="isLoading">Cancelar</button>
     </div>
 
-    <mat-spinner *ngIf="isLoading" diameter="30"></mat-spinner> <!-- Spinner durante o loading -->
+    <mat-spinner *ngIf="isLoading" class="loading-spinner" diameter="30"></mat-spinner> <!-- Spinner durante o loading -->
   </form>
 </mat-card>

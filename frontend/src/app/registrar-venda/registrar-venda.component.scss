@@ -1,54 +1,103 @@
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+mat-card {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* Custom Button Styles */
+button {
+  width: 100%;
+  padding: 12px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Register Button Styling */
+.register-btn {
+  background-color: #4caf50; /* Green for success */
+  color: white;
+}
+
+.register-btn:hover {
+  background-color: #388e3c; /* Darker green */
+}
+
+/* Cancel Button Styling */
+.cancel-btn {
+  background-color: #f44336; /* Red for cancel */
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f; /* Darker red */
+}
+
+/* Loading spinner customization */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Snackbar Success and Error */
+.success-snackbar {
+  background-color: #4caf50; /* Green for success */
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.error-snackbar {
+  background-color: #f44336; /* Red for error */
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+/* Responsive Styles for smaller screens */
+@media (max-width: 768px) {
+  .mat-dialog-container {
+    width: 100vw;
+    margin: 0;
+    max-width: 90%;
+    height: auto;
   }
-  
-  mat-card {
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-  }
-  
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  
-  button {
-    width: 100%;
-    padding: 12px;
-  }
-  .loading-spinner {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  .success-snackbar {
-    background-color: #4caf50; /* Verde para sucesso */
-    color: white;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-  }
-  
-  .error-snackbar {
-    background-color: #f44336; /* Vermelho para erro */
-    color: white;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-  }
-  
-  mat-icon {
-    margin-right: 8px;
-  }
-  @media (max-width: 768px) {
-    .mat-dialog-container {
-      width: 100vw;
-      margin: 0;
-      max-width: 90%;
-      height: auto;
-    }
-  }
-  
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px; /* Espaçamento entre o formulário e os botões */
+}
+
+button {
+  width: 48%; /* Definindo largura dos botões para ocuparem o espaço corretamente */
+  padding: 12px;
+}
+
+button:first-child {
+  margin-right: 10px; /* Espaçamento entre os dois botões */
+}
+
+.mat-raised-button.primary {
+  background-color: #4caf50; /* Verde para o botão de Registrar Venda */
+  color: white;
+}
+
+.mat-raised-button.warn {
+  background-color: #f44336; /* Vermelho para o botão de Cancelar */
+  color: white;
+}

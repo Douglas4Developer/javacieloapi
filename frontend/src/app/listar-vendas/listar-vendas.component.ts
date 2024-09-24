@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CurrencyPipe } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RegistrarVendaComponent } from '../registrar-venda/registrar-venda.component';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-listar-vendas',
@@ -20,8 +21,9 @@ import { RegistrarVendaComponent } from '../registrar-venda/registrar-venda.comp
     MatDialogModule,
     NgFor,
     CurrencyPipe,
-    CommonModule
-  ],
+    CommonModule,
+    NavbarComponent
+],
   templateUrl: './listar-vendas.component.html',
   styleUrls: ['./listar-vendas.component.scss']
 })
@@ -47,25 +49,36 @@ export class ListarVendasComponent implements OnInit {
         this.vendas = data;
       });
   }
-
   cancelarVenda(paymentId: string) {
     if (confirm('Tem certeza que deseja cancelar esta venda?')) {
+      // Prepare the headers, including the JWT token
+      const token = localStorage.getItem('jwtToken');
       const headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.token}` // Token também ao cancelar venda
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
       });
-
-      this.http.put(`http://localhost:8080/vendas/cancelar/${paymentId}`, {}, { headers })
-        .subscribe({
-          next: () => {
-            alert('Venda cancelada com sucesso!');
-            this.getVendas(); // Atualiza a lista após cancelamento
-          },
-          error: (err) => {
-            alert('Erro ao cancelar a venda: ' + err.message);
+  
+      // Make the API request to cancel the sale
+      this.http.put(`http://localhost:8080/vendas/cancelar/${paymentId}`, {}, { headers, responseType: 'text' })
+      .subscribe({
+        next: (response) => {
+          // Check if the cancellation was successful based on response text
+          if (response === 'Success' || response.includes('cancelada com sucesso')) {
+            alert('✔ Venda cancelada com sucesso!');
+            this.getVendas(); // Refresh the list of sales to reflect the cancellation
+          } else {
+            // Handle any cases where cancellation failed despite no error
+            alert('⚠️ A venda não pôde ser cancelada. Tente novamente.');
           }
-        });
+        },
+        error: (error) => {
+          // Handle error during cancellation
+          alert(`❌ Erro ao cancelar a venda: ${error.status} - ${error.message}`);
+        }
+      });
     }
   }
+  
 
   getStatusClass(status: number): string {
     switch (status) {

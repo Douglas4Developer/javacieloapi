@@ -41,4 +41,9 @@ export class RegisterUsuarioComponent {
       });
     }
   }
+
+  // Função para navegação ao login
+  goToList() {
+    this.router.navigate(['/login']);
+  }
 }

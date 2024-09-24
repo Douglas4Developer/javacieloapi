@@ -11,5 +11,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     importProvidersFrom(BrowserAnimationsModule, HttpClientModule), provideAnimationsAsync()
+    
   ]
 }).catch(err => console.error(err));

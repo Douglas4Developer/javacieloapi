@@ -19,10 +19,30 @@ public class Venda {
 
     private String paymentId;
 
+    private String bandeiraCartao; // Novo campo para armazenar a bandeira do cartão
 
+    public String getBandeiraCartao() {
+        return bandeiraCartao;
+    }
 
-    // Getters and Setters
+    public void setBandeiraCartao(String bandeiraCartao) {
+        this.bandeiraCartao = bandeiraCartao;
+    }
 
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    private boolean cancelada = false;
+
+    // Getters e Setters
+    public boolean isCancelada() {
+        return cancelada;
+    }
+
+    public void setCancelada(boolean cancelada) {
+        this.cancelada = cancelada;
+    }
 
     public Long getId() {
         return id;

@@ -4,7 +4,7 @@
 
   <!-- Botões normais para desktop -->
   <button mat-button class="desktop-only" routerLink="/listar-vendas">Listar Vendas</button>
-  <button mat-button class="desktop-only" routerLink="/registrar-venda">Novo Pedido</button>
+  <button mat-button class="desktop-only" routerLink="/about">Sobre</button> <!-- Novo botão Sobre -->
 
   <!-- Ícone de menu para dispositivos móveis -->
   <button mat-icon-button class="mobile-only" (click)="toggleMenu()">
@@ -14,10 +14,10 @@
 
 <!-- Menu dropdown visível no mobile -->
 <mat-list *ngIf="menuOpen" class="mobile-menu">
-<mat-list-item>
-  <button mat-button routerLink="/listar-vendas" (click)="toggleMenu()">Listar Vendas</button>
-</mat-list-item>
-<mat-list-item>
-  <button mat-button routerLink="/registrar-venda" (click)="toggleMenu()">Novo Pedido</button>
-</mat-list-item>
+  <mat-list-item>
+    <button mat-button routerLink="/listar-vendas" (click)="toggleMenu()">Listar Vendas</button>
+  </mat-list-item>
+  <mat-list-item>
+    <button mat-button routerLink="/about" (click)="toggleMenu()">Sobre</button> <!-- Novo botão Sobre no mobile -->
+  </mat-list-item>
 </mat-list>

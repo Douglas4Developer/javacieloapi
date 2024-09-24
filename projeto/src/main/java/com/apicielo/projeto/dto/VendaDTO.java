@@ -33,4 +33,10 @@ public class VendaDTO {
     private Integer status;
 
     private String paymentId;
+
+    private String bandeiraCartao; // Novo campo para a bandeira do cartão
+
+    private boolean cancelada;
+
 }
+

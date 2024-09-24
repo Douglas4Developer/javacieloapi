@@ -57,15 +57,22 @@ export class SuccessDialogComponent {
 
   constructor(private router: Router, public dialogRef: MatDialogRef<SuccessDialogComponent>) {}
 
-  // Função para "Nova Venda"
-  onNewSale(): void {
-    this.resetFormEvent.emit();  // Emite o evento para reiniciar o formulário
-    this.dialogRef.close();  // Fecha o modal
-  }
+// Função para "Nova Venda"
+onNewSale(): void {
+  this.resetFormEvent.emit();  // Emite o evento para reiniciar o formulário
+  this.dialogRef.close();  // Fecha o modal de sucesso, mas mantém o modal de registrar venda
+}
 
-  // Função para "Listar Vendas"
-  onListSales(): void {
-    this.dialogRef.close();  // Fecha o modal
-    this.router.navigate(['/listar-vendas']);  // Redireciona para a rota da listagem de vendas
-  }
+
+// Função para "Listar Vendas"
+onListSales(): void {
+  this.resetFormEvent.emit();  // Emite o evento para fechar o modal de "Registrar Venda"
+  this.dialogRef.close();  // Fecha o modal de sucesso
+  setTimeout(() => {
+    this.router.navigate(['/listar-vendas']);  // Redireciona após fechar os modais
+  }, 100);  // Pequeno atraso para garantir que os modais sejam fechados antes da navegação
+}
+
+
+
 }

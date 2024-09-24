@@ -5,7 +5,9 @@
     <input type="email" formControlName="email" placeholder="Email" />
     <input type="password" formControlName="password" placeholder="Senha" />
     <button type="submit" [disabled]="loading">Registrar</button>
-    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
   </form>
-  <a routerLink="/login">Já tem uma conta? Faça login</a>
+  <p class="register-link">
+    Já tem uma conta?  <button mat-stroked-button color="accent" (click)="goToList()">Faça login</button>
+  </p>    
 </div>

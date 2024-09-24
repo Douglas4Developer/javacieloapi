@@ -7,7 +7,9 @@ CREATE TABLE vendas (
     codigo_seguranca VARCHAR(255),
     payment_id VARCHAR(36),
     status INT,  -- Status transacional
-    data_venda TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    data_venda TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    bandeira_cartao VARCHAR(20),
+    cancelada BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE usuarios (

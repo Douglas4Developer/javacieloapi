@@ -6,14 +6,16 @@ import { ExibirStatusVendaComponent } from './exibir-status-venda/exibir-status-
 import { LoginComponent } from './login/login.component';
 import { RegisterUsuarioComponent } from './register-usuario/register-usuario.component';
 import { AuthGuard } from './services/auth.guard';
+import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   { path: 'login', component: LoginComponent },
   { path: 'registrar-usuario', component: RegisterUsuarioComponent },
   { path: 'registrar-venda', component: RegistrarVendaComponent, canActivate: [AuthGuard] },
   { path: 'listar-vendas', component: ListarVendasComponent, canActivate: [AuthGuard] },
-  { path: 'exibir-status-venda/:id', component: ExibirStatusVendaComponent }
+  { path: 'about', component: AboutComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 export const appRoutingProviders = [provideRouter(routes)];

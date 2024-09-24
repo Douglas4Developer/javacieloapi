@@ -33,7 +33,7 @@ public class VendaService {
     @Value("${cielo.merchant.key}")
     private String merchantKey;
 
-    private final RestTemplate restTemplate;gi
+    private final RestTemplate restTemplate;
     private final VendaRepository vendaRepository;
     private final ObjectMapper objectMapper;
 
@@ -54,16 +54,19 @@ public class VendaService {
         Map<String, Object> respostaPagamento = realizarPagamento(vendaDTO);
 
         if (respostaPagamento != null && "SUCCESS".equals(respostaPagamento.get("status"))) {
-            //Criptografando os numeros do cartao e codigo de segurança
-
+            // Criptografando os números do cartão e código de segurança
             String encryptedCardNumber = encryptionService.encrypt(venda.getNumeroCartao());
             venda.setNumeroCartao(encryptedCardNumber);
 
             String encryptedCodSecurity = encryptionService.encrypt(venda.getCodigoSeguranca());
             venda.setCodigoSeguranca(encryptedCodSecurity);
 
-            int statusTransacional = (int) respostaPagamento.get("statusCode"); // Pega o status da resposta
-            venda.setStatus(statusTransacional); // Salva o status na entidade
+            // Salva o paymentId
+            String paymentId = (String) respostaPagamento.get("paymentId");
+            venda.setPaymentId(paymentId);
+
+            int statusTransacional = (int) respostaPagamento.get("statusCode");
+            venda.setStatus(statusTransacional);
 
             vendaRepository.save(venda);
             logger.info("Venda processada e salva com sucesso: {}", venda.getDescricao());
@@ -74,6 +77,7 @@ public class VendaService {
         }
     }
 
+
     private Venda converterParaEntidade(VendaDTO vendaDTO) {
         Venda venda = new Venda();
         venda.setDescricao(vendaDTO.getDescricao());
@@ -81,6 +85,7 @@ public class VendaService {
         venda.setNumeroCartao(vendaDTO.getNumeroCartao());
         venda.setValidadeCartao(vendaDTO.getValidadeCartao());
         venda.setCodigoSeguranca(vendaDTO.getCodigoSeguranca());
+        venda.setBandeiraCartao(vendaDTO.getBandeiraCartao());
         return venda;
     }
 
@@ -111,12 +116,15 @@ public class VendaService {
                 Map<String, Object> responseBody = (Map<String, Object>) response.getBody();
                 Map<String, Object> paymentDetails = (Map<String, Object>) responseBody.get("Payment");
 
-                int statusTransacional = (Integer) paymentDetails.get("Status"); // Pega o status do pagamento
+                int statusTransacional = (Integer) paymentDetails.get("Status");
+                String paymentId = (String) paymentDetails.get("PaymentId"); // Captura o PaymentId
+
                 responseBody.put("statusCode", statusTransacional);
                 responseBody.put("status", "SUCCESS");
+                responseBody.put("paymentId", paymentId); // Adiciona o PaymentId à resposta
 
                 return responseBody;
-            }else {
+            } else {
                 logger.warn("Falha ao processar pagamento. Status: {}", response.getStatusCode());
                 return null;
             }
@@ -128,6 +136,7 @@ public class VendaService {
             return null;
         }
     }
+
 
     private HttpHeaders criarHeaders() {
         HttpHeaders headers = new HttpHeaders();
@@ -149,7 +158,7 @@ public class VendaService {
         creditCard.put("Holder", "Nome do Titular");
         creditCard.put("ExpirationDate", vendaDTO.getValidadeCartao());
         creditCard.put("SecurityCode", vendaDTO.getCodigoSeguranca());
-        creditCard.put("Brand", "Visa"); // Ajuste conforme a bandeira do cartão
+        creditCard.put("Brand",  vendaDTO.getBandeiraCartao()); // Ajuste conforme a bandeira do cartão
 
         payment.put("CreditCard", creditCard);
 
@@ -168,6 +177,11 @@ public class VendaService {
             vendaDTO.setDescricao(venda.getDescricao());
             vendaDTO.setValor(venda.getValor());
             vendaDTO.setStatus(venda.getStatus());
+            vendaDTO.setPaymentId(venda.getPaymentId());
+            vendaDTO.setBandeiraCartao(venda.getBandeiraCartao());
+            vendaDTO.setCancelada(venda.isCancelada());
+
+
 
             // Decrypting the card number
             String decryptedCardNumber = encryptor.decrypt(venda.getNumeroCartao());
@@ -178,4 +192,6 @@ public class VendaService {
             return vendaDTO;
         }).collect(Collectors.toList());
     }
+
+
 }
